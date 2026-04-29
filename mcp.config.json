@@ -1,0 +1,8 @@
+{
+  "servers": {
+    "playwright": {
+      "command": "node",
+      "args": ["./node_modules/.bin/playwright-mcp"]
+    }
+  }
+}
