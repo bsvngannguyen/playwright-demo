@@ -30,9 +30,14 @@ def pytest_sessionfinish(session, exitstatus):
 
     with open(report_path, "w", encoding="utf-8") as f:
         # ====== CODE ======
-        f.write("========== TEST CODE (test_login.py) ==========\n\n")
-        with open("test_login.py", "r", encoding="utf-8") as code_file:
-            f.write(code_file.read())
+        f.write("========== TEST CODE SOURCE ==========\n\n")
+        # Lấy danh sách các file test duy nhất đã chạy trong session
+        test_files = {str(item.fspath) for item in session.items}
+        for test_file in test_files:
+            f.write(f"--- File: {os.path.basename(test_file)} ---\n")
+            with open(test_file, "r", encoding="utf-8") as code_file:
+                f.write(code_file.read())
+            f.write("\n" + "="*40 + "\n")
 
         # ====== RESULT ======
         f.write("\n\n========== TEST EXECUTION RESULT ==========\n")
